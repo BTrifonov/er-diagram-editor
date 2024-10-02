@@ -18,9 +18,15 @@ const initialNodes = [
 export default function Editor() {
     const [nodes, setNodes] = useState(initialNodes);
 
+    const onNodesChange = useCallback(
+        (changes: NodeChange<{ id: string; position: { x: number; y: number; }; type: string; data: {}; }>[]) => setNodes((nds) => applyNodeChanges(changes, nds)),
+        [],
+      );
+
     return (
         <div style={{ height: '100%', width: '100%' }}>
-            <ReactFlow 
+            <ReactFlow
+                onNodesChange={onNodesChange}
                 nodes={nodes} 
                 nodeTypes={nodeTypes}
             >

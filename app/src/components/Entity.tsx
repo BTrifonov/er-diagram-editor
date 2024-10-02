@@ -1,48 +1,32 @@
 import { useCallback } from "react"
 import {Handle, Position} from '@xyflow/react'
 import { Box, Button, TextField } from "@mui/material";
+import EntityHeader from "./EntityHeader";
+import EntityRow from "./EntityRow";
 
 
 
 
 export default function Entity({data}:any) {
-    let hehe=data;
-
+    let someData=data;
 
     return (
-        <div>
-            <Box
-                sx={{
-                    height: 'fit-content', 
-                    width: 'fit-content', 
-                    display: 'flex', 
-                    flexDirection: 'column'
-                }}
-            >
-                <Box
-                    sx={{
-                        display:'flex', 
-                        flexDirection: 'row'
-                    }}
-                >
-                    <Button>B</Button>
-                    <TextField
-                        variant="outlined"
-                        placeholder="Entity name"
-                    >
-                    </TextField>
-                </Box>
+        <Box
+            sx={{
+                borderStyle: 'solid', 
+                borderColor: 'black', 
+                borderWidth: '1px',
 
-                <Box
-                    sx={{
-                        display: 'flex', 
-                        flexDirection: 'row'
-                    }}
-                >
-                    <Button>PK</Button>
-                    <TextField></TextField>
-                </Box>
-            </Box>
-        </div>
+                height: 'fit-content', 
+                width: '80%', 
+
+                display: 'flex', 
+                flexDirection: 'column'
+            }}
+        >
+            <EntityHeader/>
+            <EntityRow/>
+            
+        </Box>
     );
 }
