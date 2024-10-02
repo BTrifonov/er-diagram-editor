@@ -1,0 +1,50 @@
+{
+    "Numeric": [
+        "INT",
+        "SMALLINT",
+        "BIGINT",
+        "DECIMAL",
+        "FLOAT",
+        "DOUBLE"
+    ],
+    "String": [
+        "CHAR",
+        "VARCHAR",
+        "TEXT"
+    ],
+    "Date/Time": [
+        "DATE",
+        "TIME",
+        "DATETIME",
+        "TIMESTAMP",
+        "YEAR"
+    ],
+    "Boolean": [
+        "BOOLEAN"
+    ],
+    "Binary": [
+        "BINARY",
+        "VARBINARY",
+        "BLOB"
+    ],
+    "Structured Data": [
+        "JSON",
+        "XML"
+    ],
+    "UUID": [
+        "UUID"
+    ],
+    "Special Types": [
+        "ENUM",
+        "SET",
+        "SPATIAL/GEOMETRY"
+    ],
+    "Currency": [
+        "MONEY",
+        "SMALLMONEY"
+    ],
+    "Auto-Increment": [
+        "AUTO_INCREMENT",
+        "SERIAL"
+    ]
+}
