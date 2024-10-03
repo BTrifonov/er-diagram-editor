@@ -1,0 +1,205 @@
+
+{
+  "entities": [
+    {
+      "name": "Event",
+      "fields": [
+        {
+          "fieldName": "name",
+          "fieldType": "String",
+          "fieldValidateRules": ["required"]
+        },
+        {
+          "fieldName": "description",
+          "fieldType": "TextBlob"
+        },
+        {
+          "fieldName": "startDate",
+          "fieldType": "Instant",
+          "fieldValidateRules": ["required"]
+        },
+        {
+          "fieldName": "endDate",
+          "fieldType": "Instant",
+          "fieldValidateRules": ["required"]
+        },
+        {
+          "fieldName": "eventType",
+          "fieldType": "EventType"
+        },
+        {
+          "fieldName": "maxParticipants",
+          "fieldType": "Integer"
+        },
+        {
+          "fieldName": "status",
+          "fieldType": "EventStatus"
+        }
+      ],
+      "relationships": [
+        {
+          "relationshipType": "one-to-many",
+          "otherEntityName": "Venue",
+          "relationshipName": "venue",
+          "otherEntityField": "name"
+        },
+        {
+          "relationshipType": "one-to-many",
+          "otherEntityName": "Ticket",
+          "relationshipName": "tickets"
+        },
+        {
+          "relationshipType": "many-to-many",
+          "otherEntityName": "User",
+          "relationshipName": "participants",
+          "otherEntityRelationshipName": "attendedEvents"
+        },
+        {
+          "relationshipType": "many-to-one",
+          "otherEntityName": "User",
+          "relationshipName": "organizer",
+          "otherEntityField": "login"
+        }
+      ]
+    },
+    {
+      "name": "Venue",
+      "fields": [
+        {
+          "fieldName": "name",
+          "fieldType": "String",
+          "fieldValidateRules": ["required"]
+        },
+        {
+          "fieldName": "address",
+          "fieldType": "String",
+          "fieldValidateRules": ["required"]
+        },
+        {
+          "fieldName": "city",
+          "fieldType": "String",
+          "fieldValidateRules": ["required"]
+        },
+        {
+          "fieldName": "capacity",
+          "fieldType": "Integer",
+          "fieldValidateRules": ["required"]
+        }
+      ]
+    },
+    {
+      "name": "Ticket",
+      "fields": [
+        {
+          "fieldName": "price",
+          "fieldType": "BigDecimal",
+          "fieldValidateRules": ["required"]
+        },
+        {
+          "fieldName": "purchaseDate",
+          "fieldType": "Instant",
+          "fieldValidateRules": ["required"]
+        },
+        {
+          "fieldName": "ticketType",
+          "fieldType": "TicketType",
+          "fieldValidateRules": ["required"]
+        }
+      ],
+      "relationships": [
+        {
+          "relationshipType": "many-to-one",
+          "otherEntityName": "Event",
+          "relationshipName": "event"
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "fields": [
+        {
+          "fieldName": "firstName",
+          "fieldType": "String",
+          "fieldValidateRules": ["required"]
+        },
+        {
+          "fieldName": "lastName",
+          "fieldType": "String",
+          "fieldValidateRules": ["required"]
+        },
+        {
+          "fieldName": "email",
+          "fieldType": "String",
+          "fieldValidateRules": ["required", "unique"]
+        },
+        {
+          "fieldName": "login",
+          "fieldType": "String",
+          "fieldValidateRules": ["required", "unique"]
+        },
+        {
+          "fieldName": "password",
+          "fieldType": "String",
+          "fieldValidateRules": ["required"]
+        }
+      ],
+      "relationships": [
+        {
+          "relationshipType": "one-to-many",
+          "otherEntityName": "Event",
+          "relationshipName": "organizedEvents",
+          "otherEntityField": "login"
+        }
+      ]
+    }
+  ],
+  "enums": [
+    {
+      "name": "EventType",
+      "values": ["CONFERENCE", "WORKSHOP", "SEMINAR", "PARTY", "MEETING"]
+    },
+    {
+      "name": "EventStatus",
+      "values": ["DRAFT", "PUBLISHED", "CANCELLED", "COMPLETED"]
+    },
+    {
+      "name": "TicketType",
+      "values": ["REGULAR", "VIP", "STUDENT"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "sourceEntity": "Event",
+      "targetEntity": "Venue",
+      "relationshipName": "venue",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "sourceEntity": "Event",
+      "targetEntity": "Ticket",
+      "relationshipName": "tickets"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "sourceEntity": "Ticket",
+      "targetEntity": "Event",
+      "relationshipName": "event"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "sourceEntity": "Event",
+      "targetEntity": "User",
+      "relationshipName": "participants",
+      "otherEntityRelationshipName": "attendedEvents"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "sourceEntity": "Event",
+      "targetEntity": "User",
+      "relationshipName": "organizer",
+      "otherEntityField": "login"
+    }
+  ]
+}

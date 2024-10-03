@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import './App.css'
 import Editor from './components/Editor'
-import { createTheme, ThemeProvider } from '@mui/material'
+import { createTheme, SelectChangeEvent, ThemeProvider } from '@mui/material'
 
 function App() {
   const [count, setCount] = useState(0)

@@ -1,9 +1,10 @@
 import { useState, useCallback } from 'react';
 import { applyEdgeChanges, applyNodeChanges, addEdge, ReactFlow, Controls, Background, NodeChange, EdgeChange } from "@xyflow/react"
 import Entity from './Entity';
+import SelectNode from './SelectNode';
 
 
-const nodeTypes = {entity: Entity};
+const nodeTypes = {entity: Entity, selectNode: SelectNode};
 
 const initialNodes = [
     {
