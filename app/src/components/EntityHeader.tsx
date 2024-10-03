@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { Box,  TextField,  useTheme } from "@mui/material";
 
-
-
-
 /**
  * Header of an ER-entity element
  *
