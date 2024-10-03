@@ -48,7 +48,7 @@ export default function EntityHeader({
                 flexDirection: 'row', 
                 justifyContent: 'space-between', 
                 
-                
+
                 alignItems:'center',
                 padding: '1em', 
 

@@ -3,62 +3,74 @@ import { Box } from "@mui/material";
 import EntityHeader from "./EntityHeader";
 import EntityEntry from './EntityEntry';
 
-
-export default function Entity({data}:any) {
-    //TODO: Through data could be fetched all relevant data from files
-    let someData=data;
-
+export default function Entity({ data }: any) {
     /**
-     * Entity header states
+     * Entity header state
      */
     const [entityName, setEntityName] = React.useState<string>('');
 
     /**
-     * Entity entry states
+     * Entity entry states for multiple entries
      */
-    const [attributeKey, setAttributeKey] = React.useState<string>('');
-    const [attributeName, setAttributeName] = React.useState<string>('');
-    const [attributeType, setAttributeType] = React.useState<string>('');
+    const [attributeKeys, setAttributeKeys] = React.useState<string[]>(Array(5).fill(''));
+    const [attributeNames, setAttributeNames] = React.useState<string[]>(Array(5).fill(''));
+    const [attributeTypes, setAttributeTypes] = React.useState<string[]>(Array(5).fill(''));
 
     const attributeCount = 5;
-    const entityAttributes=[];
+    const entityAttributes = [];
 
-    for(let i=0;i<5;i++) {
+    const handleAttributeTypeChange = (index: number, newValue: string) => {
+        // Copy the current attribute types and update the specific index
+        const updatedAttributeTypes = [...attributeTypes];
+        updatedAttributeTypes[index] = newValue;
+        setAttributeTypes(updatedAttributeTypes);
+    };
+
+    const handleAttributeKeyChange = (index: number, newValue: string) => {
+        const updatedAttributeKeys = [...attributeKeys];
+        updatedAttributeKeys[index] = newValue;
+        setAttributeKeys(updatedAttributeKeys);
+    };
+
+    const handleAttributeNameChange = (index: number, newValue: string) => {
+        const updatedAttributeNames = [...attributeNames];
+        updatedAttributeNames[index] = newValue;
+        setAttributeNames(updatedAttributeNames);
+    };
+
+    for (let i = 0; i < attributeCount; i++) {
         entityAttributes.push(
             <EntityEntry
                 key={i}
-                attributeKey={attributeKey}
-                setAttributeKey={setAttributeKey}
-
-                attributeName={attributeName}
-                setAttributeName={setAttributeName}
-
-                attributeType={attributeType}
-                setAttributeType={setAttributeType}
+                attributeKey={attributeKeys[i]}
+                setAttributeKey={(newValue: string) => handleAttributeKeyChange(i, newValue)}
+                attributeName={attributeNames[i]}
+                setAttributeName={(newValue: string) => handleAttributeNameChange(i, newValue)}
+                attributeType={attributeTypes[i]}
+                setAttributeType={(newValue: string) => handleAttributeTypeChange(i, newValue)}
             />
-        )
+        );
     }
 
     return (
         <Box
             sx={{
-                borderStyle: 'solid', 
-                borderColor: 'black', 
+                borderStyle: 'solid',
+                borderColor: 'black',
                 borderWidth: '1px',
 
-                minHeight: 'fit-content', 
-                minWidth: 'fit-content', 
+                minHeight: 'fit-content',
+                minWidth: 'fit-content',
 
-                display: 'flex', 
+                display: 'flex',
                 flexDirection: 'column',
-                transition: 'height 0.8s ease'
             }}
         >
             <EntityHeader
                 entityName={entityName}
                 setEntityName={setEntityName}
             />
-    
+
             {entityAttributes}
 
         </Box>
