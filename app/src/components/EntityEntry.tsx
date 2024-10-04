@@ -1,32 +1,26 @@
 import * as React from 'react';
 
 import { Box, useTheme, TextField, Divider, Typography } from "@mui/material";
-import AttributeKeyMenu from "./AttributeKeyMenu";
+
 import AttributeTypeMenu from "./AttributeTypeMenu";
 import ModeSelector from './ModeSelector';
-
-/**
- * Each entry should pass on its own props for edit and visibility mode
- *  */
-export interface EntityEntryProps {
-    attributeKey: string,
-    setAttributeKey: (attributeKey: string) => void, 
-
-    attributeName: string, 
-    setAttributeName: (attributeName: string) => void,
-
-    attributeType: string, 
-    setAttributeType: (attributeType: string) => void
-}
+import { EntityFieldProps } from '../types/entityTypes';
 
 
 export default function EntityEntry({
-    attributeKey, setAttributeKey,
-    attributeName, setAttributeName, 
-    attributeType, setAttributeType
-}:EntityEntryProps) {
+    fieldName, setFieldName,
+    fieldType, setFieldType, 
+    fieldValidateRules, setFieldValidateRules
+}:EntityFieldProps) {
 
     const theme = useTheme();
+
+    React.useEffect(()=>{
+        //always start with visibility mode
+        setEditMode(false);
+        setVisibilityMode(true);
+    }, []);
+
 
     const [editMode, setEditMode] = React.useState<boolean>(false);
     const [visibilityMode, setVisibilityMode] = React.useState<boolean>(false);
@@ -46,7 +40,8 @@ export default function EntityEntry({
             }}
         >
 
-           {editMode && 
+        {/*TODO: Logic for the display of keys depends on relationships, implement */}
+           {/* {editMode && 
                 <AttributeKeyMenu attributeKey={attributeKey} setAttributeKey={setAttributeKey}/>
            }
 
@@ -54,7 +49,7 @@ export default function EntityEntry({
                 <Typography>
                     {attributeKey}
                 </Typography>
-           }
+           } */}
 
             <Divider 
                 orientation="vertical"
@@ -64,12 +59,15 @@ export default function EntityEntry({
             />
 
            {/* ------------------------------------------------------------------------------*/}
-            {editMode &&
+            {
                 <TextField
                     size='small'
                     variant='standard'
-                    label='Attribute name'
-                    onChange={(event)=>setAttributeName(event.target.value)}
+                    label={editMode ? 'Field name':fieldName}
+                    placeholder={fieldName}
+                    draggable={editMode ? false:true}
+                    disabled= {editMode ? false:true}
+                    onChange={(event)=>setFieldName(event.target.value)}
                     sx={{
                         textAlign:'center',
                         borderRadius: '0.5em', 
@@ -78,12 +76,12 @@ export default function EntityEntry({
                 >
                 </TextField> 
             }
-
+{/* 
             {visibilityMode &&
                 <Typography>
-                    {attributeName}
+                    {fieldName}
                 </Typography>
-            }
+            } */}
 
             {/* ------------------------------------------------------------------------------*/}
 
@@ -94,16 +92,16 @@ export default function EntityEntry({
                 sx={{margin: '0.5em'}}
             />
 
-            {editMode &&
-                <AttributeTypeMenu attributeType={attributeType} setAttributeType={setAttributeType}/>
+            {
+                <AttributeTypeMenu fieldType={fieldType} setFieldType={setFieldType} disabled={visibilityMode}/>
             }
 
-            {visibilityMode &&
+            {/* {visibilityMode &&
                 <Typography>
-                    {attributeType}
+                    {fieldType}
                 </Typography>
             }
-        
+         */}
             <ModeSelector 
                 editMode={editMode}
                 setEditMode={setEditMode}

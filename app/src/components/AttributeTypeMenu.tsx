@@ -1,15 +1,11 @@
 import * as React from 'react';
 
 import { Box, FormControl, InputLabel, Select, useTheme, SelectChangeEvent, MenuItem } from "@mui/material";
+import { AttributeTypeMenuProps } from '../types/entityTypes';
 
 
-export interface AttributeTypeMenuProps {
-    attributeType: string, 
-    setAttributeType: (type: string) => void
-}
 
-
-export default function AttributeTypeMenu({attributeType, setAttributeType}:AttributeTypeMenuProps) {
+export default function AttributeTypeMenu({fieldType, setFieldType, disabled}:AttributeTypeMenuProps) {
     const theme = useTheme();
     
     const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -17,7 +13,7 @@ export default function AttributeTypeMenu({attributeType, setAttributeType}:Attr
     const handleChange = (event:SelectChangeEvent) => {
         console.log(event.target.value);
 
-        setAttributeType(event.target.value);
+        setFieldType(event.target.value);
       };
     
 
@@ -38,14 +34,15 @@ export default function AttributeTypeMenu({attributeType, setAttributeType}:Attr
                     variant='standard'
                     size='small'
 
-                    open={isOpen}
+                    open={isOpen && !disabled}
                     onClick={()=>setIsOpen((prev)=>!prev)}
                     onChange={handleChange}
 
-                    value={attributeType}
+                    value={fieldType}
                     autoWidth
+                    disabled={disabled}
                 >
-                    <MenuItem value=" "></MenuItem>
+                    <MenuItem value={fieldType}>{fieldType}</MenuItem>
                     <MenuItem value="INTEGER">INTEGER</MenuItem>
                     <MenuItem value="NUMBER">NUMBER</MenuItem>
                     <MenuItem value="VARCHAR">VARCHAR</MenuItem>

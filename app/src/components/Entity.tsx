@@ -3,54 +3,66 @@ import { Box } from "@mui/material";
 import EntityHeader from "./EntityHeader";
 import EntityEntry from './EntityEntry';
 
-export default function Entity({ data }: any) {
+
+import { Entity as EntityType } from '../types/entityTypes';
+import { getFieldNames, getFieldTypes, getFieldValidateRules } from '../utils/fieldParser';
+
+interface EntityData {
+    entity: EntityType
+}
+
+interface EntityProps {
+    data: EntityData
+}
+
+export default function Entity({ data }: EntityProps) {
     /**
      * Entity header state
      */
-    const [entityName, setEntityName] = React.useState<string>('');
+    const [entityName, setEntityName] = React.useState<string>(data.entity.name);
 
     /**
-     * Entity entry states for multiple entries
+     * Entity fields states
      */
-    const [attributeKeys, setAttributeKeys] = React.useState<string[]>(Array(5).fill(''));
-    const [attributeNames, setAttributeNames] = React.useState<string[]>(Array(5).fill(''));
-    const [attributeTypes, setAttributeTypes] = React.useState<string[]>(Array(5).fill(''));
 
-    const attributeCount = 5;
-    const entityAttributes = [];
+    const [fieldNames, setFieldNames] = React.useState<string[]>(getFieldNames(data.entity.fields));
+    const [fieldTypes, setFieldTypes] = React.useState<string[]>(getFieldTypes(data.entity.fields));
+    const [fieldValidateRules, setFieldValidateRules] = React.useState<string[][]>(getFieldValidateRules(data.entity.fields));
 
-    const handleAttributeTypeChange = (index: number, newValue: string) => {
-        // Copy the current attribute types and update the specific index
-        const updatedAttributeTypes = [...attributeTypes];
-        updatedAttributeTypes[index] = newValue;
-        setAttributeTypes(updatedAttributeTypes);
-    };
+    const entityFields: any[] = [];
 
-    const handleAttributeKeyChange = (index: number, newValue: string) => {
-        const updatedAttributeKeys = [...attributeKeys];
-        updatedAttributeKeys[index] = newValue;
-        setAttributeKeys(updatedAttributeKeys);
-    };
-
-    const handleAttributeNameChange = (index: number, newValue: string) => {
-        const updatedAttributeNames = [...attributeNames];
-        updatedAttributeNames[index] = newValue;
-        setAttributeNames(updatedAttributeNames);
-    };
-
-    for (let i = 0; i < attributeCount; i++) {
-        entityAttributes.push(
+    data.entity.fields.forEach((field, index)=>{
+        entityFields.push(
             <EntityEntry
-                key={i}
-                attributeKey={attributeKeys[i]}
-                setAttributeKey={(newValue: string) => handleAttributeKeyChange(i, newValue)}
-                attributeName={attributeNames[i]}
-                setAttributeName={(newValue: string) => handleAttributeNameChange(i, newValue)}
-                attributeType={attributeTypes[i]}
-                setAttributeType={(newValue: string) => handleAttributeTypeChange(i, newValue)}
-            />
-        );
+                key={index}
+                
+                fieldName={fieldNames[index]}
+                setFieldName={(newValue: string)=> handleFieldNameChange(index, newValue)}
+
+                fieldType={fieldTypes[index]}
+                setFieldType={(newValue: string)=> handleFieldTypeChange(index, newValue)}
+
+                fieldValidateRules={fieldValidateRules[index]}
+                setFieldValidateRules={()=>{return}}
+            >
+
+            </EntityEntry>
+        )
+    })
+
+
+    const handleFieldNameChange = (index: number, newValue: string) => {
+        const updatedFieldNames = [...fieldNames];
+        updatedFieldNames[index] = newValue;
+        setFieldNames(updatedFieldNames);
     }
+
+    const handleFieldTypeChange = (index: number, newValue: string) => {
+        const updatedFieldTypes = [...fieldTypes];
+        updatedFieldTypes[index] = newValue;
+        setFieldTypes(updatedFieldTypes);
+    }
+    
 
     return (
         <Box
@@ -71,7 +83,7 @@ export default function Entity({ data }: any) {
                 setEntityName={setEntityName}
             />
 
-            {entityAttributes}
+            {entityFields}
 
         </Box>
     );

@@ -1,9 +1,6 @@
 import * as React from 'react';
-import { Box,  ButtonGroup,  IconButton,  TextField,  Typography,  useTheme } from "@mui/material";
+import { Box,  TextField,  Typography,  useTheme } from "@mui/material";
 
-import EditIcon from '@mui/icons-material/Edit';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import { ModeProps } from '../types/general';
 import ModeSelector from './ModeSelector';
 
 /**
@@ -17,7 +14,7 @@ export interface EntityHeaderProps {
 
 /**
  * Header of an ER-entity element
- *
+ * TODO : Adjust CSS-style, so that it looks a little bit better...
  */
 export default function EntityHeader({
     entityName, setEntityName
@@ -26,6 +23,13 @@ export default function EntityHeader({
     const theme = useTheme();
     const [editMode, setEditMode] = React.useState<boolean>(false);
     const [visibilityMode, setVisibilityMode] = React.useState<boolean>(false);
+
+    React.useEffect(()=>{
+        //Always start with visibility mode
+        //Idempotent operation, no need to clean up
+        triggerVisibilityMode();
+    }, [])
+
 
     
     function triggerEditMode() {
@@ -61,7 +65,7 @@ export default function EntityHeader({
         >
 
             {editMode &&
-                <Box sx={{marginLeft: '5em'}}>
+                <Box sx={{marginLeft: '2em'}}>
                     <TextField
                         size='small'
                         variant='standard'
@@ -69,7 +73,7 @@ export default function EntityHeader({
                         value={entityName}
                         onChange={(event)=>setEntityName(event.target.value)}
                         sx={{
-                            textAlign:'center',
+                            textAlign:'left',
                             borderRadius: '0.5em', 
                             margin: '0.5em'
                         }}
@@ -86,12 +90,11 @@ export default function EntityHeader({
             }
 
             {visibilityMode &&
-                <Box sx={{marginLeft: '8em'}}>
+                <Box sx={{marginLeft: '5em'}}>
                     <Typography>
                         {entityName}
                     </Typography>   
                 </Box>
-              
             }
 
             <ModeSelector
