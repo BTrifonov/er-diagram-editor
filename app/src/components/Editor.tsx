@@ -1,14 +1,13 @@
 import { useState, useCallback } from 'react';
 import {applyNodeChanges, ReactFlow, Controls, Background, NodeChange} from "@xyflow/react"
 import Entity from './Entity';
-import SelectNode from './SelectNode';
 
 import * as React from 'react';
 import { Entity as EntityType } from '../types/entityTypes';
 import { countEntitiesFromJSON, parseEntitiesFromJSON } from '../utils/entityGeneration';
 import { createNodes } from '../utils/nodeGenerator';
 
-const nodeTypes = {entity: Entity, selectNode: SelectNode};
+const nodeTypes = {entity: Entity};
 
 export default function Editor() {
   const [nodes, setNodes] = useState<any[]>([]);

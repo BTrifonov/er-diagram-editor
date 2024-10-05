@@ -1,20 +1,17 @@
 import * as React from 'react';
 
 import { Select, SelectChangeEvent, Box, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { FieldKeyMenuProps } from '../types/propTypes';
 
-export interface AttributeKeyProps {
-  attributeKey: string, 
-  setAttributeKey: (key: string) => void
-}
-
-
-export default function AttributeKeyMenu({attributeKey, setAttributeKey}: AttributeKeyProps) {
+export default function FieldKeyMenu({fieldKey, setFieldKey, editMode, setEditMode}: FieldKeyMenuProps) {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
-  const handleChange = (event:SelectChangeEvent) => {
-    console.log(event.target.value);
-    setAttributeKey(event.target.value);
-  };
+  function handleChange(event: SelectChangeEvent) {
+    //Close drop down menu
+    setIsOpen(false);
+
+    setFieldKey(event.target.value);
+  }
 
   return (
     <Box
@@ -23,7 +20,7 @@ export default function AttributeKeyMenu({attributeKey, setAttributeKey}: Attrib
       }}
     >
       <FormControl fullWidth>
-        <InputLabel id="attribute-key-label">Key</InputLabel>
+        <InputLabel id="attribute-key-label">Field key</InputLabel>
         <Select
           id="attribute-key-select"
           labelId="attribute-key-label"
@@ -31,15 +28,16 @@ export default function AttributeKeyMenu({attributeKey, setAttributeKey}: Attrib
 
           variant='standard'
           size='small'
+          value={fieldKey}
           
-          open={isOpen}
+          open={isOpen && editMode}
           onClick={()=>setIsOpen((prev)=>!prev)}
           onChange={handleChange}
 
-          value={attributeKey}
+          disabled={!editMode}
           autoWidth
         >
-          <MenuItem value=" "> </MenuItem>
+          <MenuItem value={fieldKey}> </MenuItem>
           <MenuItem value="PK">PK</MenuItem>
           <MenuItem value="FK">FK</MenuItem>
         </Select>

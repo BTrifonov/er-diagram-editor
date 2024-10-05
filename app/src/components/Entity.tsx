@@ -72,7 +72,8 @@ export default function Entity({ data }: EntityProps) {
                 borderWidth: '1px',
 
                 minHeight: 'fit-content',
-                minWidth: 'fit-content',
+                //minWidth: 'fit-content',
+                width:'400px',
 
                 display: 'flex',
                 flexDirection: 'column',

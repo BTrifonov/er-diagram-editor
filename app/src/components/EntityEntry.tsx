@@ -2,10 +2,14 @@ import * as React from 'react';
 
 import { Box, useTheme, TextField, Divider, Typography } from "@mui/material";
 
-import AttributeTypeMenu from "./AttributeTypeMenu";
+
 import ModeSelector from './ModeSelector';
 import { EntityFieldProps } from '../types/entityTypes';
 
+
+import FieldNameMenu from './FieldNameMenu';
+import FieldTypeMenu from './FieldTypeMenu';
+import FieldKeyMenu from './FieldKeyMenu';
 
 export default function EntityEntry({
     fieldName, setFieldName,
@@ -29,79 +33,58 @@ export default function EntityEntry({
         <Box
             sx={{
                 bgcolor: theme.palette.primary.light,
-                //minHeight: 'fit-content', 
-                //minWidth: 'fit-content', 
+                width: '100%',
+
                 display: 'flex', 
                 flexDirection: 'row', 
                 alignItems: 'center',
                 justifyContent: 'space-between', 
                 height: '40px', 
-                padding: '1em'
+                padding: '1em', 
             }}
         >
 
-        {/*TODO: Logic for the display of keys depends on relationships, implement */}
-           {/* {editMode && 
-                <AttributeKeyMenu attributeKey={attributeKey} setAttributeKey={setAttributeKey}/>
-           }
+            <FieldKeyMenu
+                fieldKey=' '
+                setFieldKey={(fieldKey:string)=>console.log(fieldKey)}
 
-           {visibilityMode &&
-                <Typography>
-                    {attributeKey}
-                </Typography>
-           } */}
+                editMode={editMode}
+                setEditMode={setEditMode}
+            >
 
-            <Divider 
-                orientation="vertical"
-                variant="middle" 
-                flexItem
-                sx={{margin: '0.5em'}}
-            />
-
-           {/* ------------------------------------------------------------------------------*/}
-            {
-                <TextField
-                    size='small'
-                    variant='standard'
-                    label={editMode ? 'Field name':fieldName}
-                    placeholder={fieldName}
-                    draggable={editMode ? false:true}
-                    disabled= {editMode ? false:true}
-                    onChange={(event)=>setFieldName(event.target.value)}
-                    sx={{
-                        textAlign:'center',
-                        borderRadius: '0.5em', 
-                        margin: '0.5em'
-                    }}
-                >
-                </TextField> 
-            }
-{/* 
-            {visibilityMode &&
-                <Typography>
-                    {fieldName}
-                </Typography>
-            } */}
+            </FieldKeyMenu>
 
             {/* ------------------------------------------------------------------------------*/}
-
             <Divider 
                 orientation="vertical"
                 variant="middle" 
                 flexItem
                 sx={{margin: '0.5em'}}
             />
+           {/* ------------------------------------------------------------------------------*/}
+            <FieldNameMenu
+                fieldName={fieldName}
+                setFieldName={setFieldName}
 
-            {
-                <AttributeTypeMenu fieldType={fieldType} setFieldType={setFieldType} disabled={visibilityMode}/>
-            }
-
-            {/* {visibilityMode &&
-                <Typography>
-                    {fieldType}
-                </Typography>
-            }
-         */}
+                editMode={editMode}
+                setEditMode={setEditMode}
+            />
+            {/* ------------------------------------------------------------------------------*/}
+            <Divider 
+                orientation="vertical"
+                variant="middle" 
+                flexItem
+                sx={{margin: '0.5em'}}
+            />
+            {/* ------------------------------------------------------------------------------*/}
+            <FieldTypeMenu 
+                fieldType={fieldType} 
+                setFieldType={setFieldType} 
+                
+                editMode={editMode}
+                setEditMode={setEditMode}
+            />
+            {/* ------------------------------------------------------------------------------*/}
             <ModeSelector 
                 editMode={editMode}
                 setEditMode={setEditMode}
