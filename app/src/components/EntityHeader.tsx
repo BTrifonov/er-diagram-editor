@@ -56,8 +56,8 @@ export default function EntityHeader({
                 alignItems:'center',
                 padding: '1em', 
 
-                //minHeight: 'fit-content', 
-                //minWidth: 'fit-content', 
+                minHeight: 'fit-content', 
+                minWidth: '100%', 
                 
                 height: '60px',
                 transition: 'height 0.8s ease'
@@ -65,7 +65,7 @@ export default function EntityHeader({
         >
 
             {editMode &&
-                <Box sx={{marginLeft: '2em'}}>
+                <Box sx={{marginLeft: '35%'}}>
                     <TextField
                         size='small'
                         variant='standard'
@@ -73,7 +73,7 @@ export default function EntityHeader({
                         value={entityName}
                         onChange={(event)=>setEntityName(event.target.value)}
                         sx={{
-                            textAlign:'left',
+                            textAlign:'center',
                             borderRadius: '0.5em', 
                             margin: '0.5em'
                         }}
@@ -90,7 +90,7 @@ export default function EntityHeader({
             }
 
             {visibilityMode &&
-                <Box sx={{marginLeft: '5em'}}>
+                <Box sx={{marginLeft: '35%'}}>
                     <Typography>
                         {entityName}
                     </Typography>   

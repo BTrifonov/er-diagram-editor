@@ -10,6 +10,7 @@ import { EntityFieldProps } from '../types/entityTypes';
 import FieldNameMenu from './FieldNameMenu';
 import FieldTypeMenu from './FieldTypeMenu';
 import FieldKeyMenu from './FieldKeyMenu';
+import FieldValidateRulesMenu from './FieldValidateRulesMenu';
 
 export default function EntityEntry({
     fieldName, setFieldName,
@@ -33,7 +34,7 @@ export default function EntityEntry({
         <Box
             sx={{
                 bgcolor: theme.palette.primary.light,
-                width: '100%',
+                minWidth: '100%',
 
                 display: 'flex', 
                 flexDirection: 'row', 
@@ -84,6 +85,16 @@ export default function EntityEntry({
                 editMode={editMode}
                 setEditMode={setEditMode}
             />
+            {/* ------------------------------------------------------------------------------*/}
+            <FieldValidateRulesMenu
+                fieldValidateRules={fieldValidateRules}
+                setFieldValidateRules={setFieldValidateRules}
+
+                editMode={editMode}
+                setEditMode={setEditMode}
+            
+            />
+            
             {/* ------------------------------------------------------------------------------*/}
             <ModeSelector 
                 editMode={editMode}

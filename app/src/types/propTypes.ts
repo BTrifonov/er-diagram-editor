@@ -40,7 +40,11 @@ export interface FieldTypeMenuProps {
  * Defines FieldValidateRulesMenuProps
  */
 export interface FieldValidateRulesMenuProps {
-    //TODO
+    fieldValidateRules?: string[], 
+    setFieldValidateRules: (validateRules: string[]) => void,
+
+    editMode: boolean,
+    setEditMode: (editMode: boolean) => void
 }
 
 
