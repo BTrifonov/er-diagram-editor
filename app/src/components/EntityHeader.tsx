@@ -28,6 +28,8 @@ export default function EntityHeader({
         //Always start with visibility mode
         //Idempotent operation, no need to clean up
         triggerVisibilityMode();
+
+        console.log(theme.palette.primary.light)
     }, [])
 
 
@@ -50,52 +52,28 @@ export default function EntityHeader({
                 bgcolor: theme.palette.primary.main,
                 display:'flex',
                 flexDirection: 'row', 
-                justifyContent: 'space-between', 
-                
+                justifyContent: 'space-evenly', 
 
                 alignItems:'center',
                 padding: '1em', 
 
-                minHeight: 'fit-content', 
-                minWidth: '100%', 
                 
-                height: '60px',
-                transition: 'height 0.8s ease'
+                minWidth: '100%'
             }}
         >
-
-            {editMode &&
-                <Box sx={{marginLeft: '35%'}}>
-                    <TextField
-                        size='small'
-                        variant='standard'
-                        label='Entity'
-                        value={entityName}
-                        onChange={(event)=>setEntityName(event.target.value)}
-                        sx={{
-                            textAlign:'center',
-                            borderRadius: '0.5em', 
-                            margin: '0.5em'
-                        }}
-                        slotProps={{
-                            input: {
-                                style: {
-                                    textAlign:'center'
-                                }
-                            }
-                        }}
-                    >
-                    </TextField>  
-                </Box>
-            }
-
-            {visibilityMode &&
-                <Box sx={{marginLeft: '35%'}}>
-                    <Typography>
-                        {entityName}
-                    </Typography>   
-                </Box>
-            }
+            <Box>
+                <TextField fullWidth
+                    
+                    size='medium'
+                    variant='standard'
+                    label='Entity name'
+                    value={entityName}
+                    disabled={!editMode}
+                    onChange={(event)=>setEntityName(event.target.value)}
+                >
+                </TextField>  
+            </Box>
+            
 
             <ModeSelector
               editMode={editMode}

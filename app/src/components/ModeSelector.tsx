@@ -21,7 +21,7 @@ export default function ModeSelector({
 
 
     return (
-        <Box>
+        <Box sx={{marginLeft: 'auto'}}>
         <ButtonGroup
             orientation='horizontal'
         >

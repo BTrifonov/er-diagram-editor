@@ -86,6 +86,14 @@ export default function EntityEntry({
                 setEditMode={setEditMode}
             />
             {/* ------------------------------------------------------------------------------*/}
+            <Divider 
+                orientation="vertical"
+                variant="middle" 
+                flexItem
+                sx={{margin: '0.5em'}}
+            />
+
+            {/* ------------------------------------------------------------------------------*/}
             <FieldValidateRulesMenu
                 fieldValidateRules={fieldValidateRules}
                 setFieldValidateRules={setFieldValidateRules}
@@ -94,7 +102,7 @@ export default function EntityEntry({
                 setEditMode={setEditMode}
             
             />
-            
+
             {/* ------------------------------------------------------------------------------*/}
             <ModeSelector 
                 editMode={editMode}

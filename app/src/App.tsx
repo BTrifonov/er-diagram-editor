@@ -1,22 +1,18 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import './App.css'
 import Editor from './components/Editor'
 import { createTheme, SelectChangeEvent, ThemeProvider } from '@mui/material'
+import { orangeTheme } from './themes/orangeTheme'
 
 function App() {
   const [count, setCount] = useState(0)
 
-  const darkTheme = createTheme({
-    palette: {
-      mode: 'dark',
-    },
-  });
-
   const defaultTheme = createTheme();
 
+
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={orangeTheme}>
       <Editor/>
     </ThemeProvider>
   )

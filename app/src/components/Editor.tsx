@@ -24,6 +24,7 @@ export default function Editor() {
     
     countEntities();
 
+
     return () => {
       setEntityCount(0);
     }

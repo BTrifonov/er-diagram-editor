@@ -67,12 +67,7 @@ export default function Entity({ data }: EntityProps) {
     return (
         <Box
             sx={{
-                borderStyle: 'solid',
-                borderColor: 'black',
-                borderWidth: '1px',
-
-                minHeight: 'fit-content',
-                minWidth: 'fit-content',
+                minWidth: '400px',
 
                 display: 'flex',
                 flexDirection: 'column',
@@ -84,7 +79,6 @@ export default function Entity({ data }: EntityProps) {
             />
 
             {entityFields}
-
         </Box>
     );
 }
