@@ -21,35 +21,22 @@ export default function FieldTypeMenu({fieldType, setFieldType, editMode, setEdi
       };
     
 
+    //TODO: The select menu should not change its width, based on what is selected
     return (
-        <Box
-            sx={{
-                //TODO: Set min and max width
-                width: 'fit-content',
-                minWidth: '8em'
-            }}
-        >
-            <FormControl fullWidth>
+            <FormControl variant='filled' size='small' fullWidth>
             <InputLabel id="attribute-type-label">Field type</InputLabel>
                 <Select
                     id='attribute-type-select'
                     labelId='attribute-type-label'
                     
-                    variant='standard'
-                    size='small'
                     disabled={!editMode}
 
                     open={isOpen && editMode}
                     onClick={(e)=> setIsOpen((prev)=>!prev)}
                     onChange={handleChange}
 
-                    value={fieldType}
-
                     autoWidth
-                    sx={{
-                        maxHeight: '50px', 
-                        overflowY: 'scroll'
-                    }}
+                    value={fieldType}
                 >
                     <MenuItem value={fieldType}>{fieldType}</MenuItem>
                     <MenuItem value="INTEGER">INTEGER</MenuItem>
@@ -58,7 +45,5 @@ export default function FieldTypeMenu({fieldType, setFieldType, editMode, setEdi
                     <MenuItem value="DATE">DATE</MenuItem>
                 </Select>
             </FormControl>
-        </Box>
-
     )
 }

@@ -21,7 +21,6 @@ export default function ModeSelector({
 
 
     return (
-        <Box sx={{marginLeft: 'auto'}}>
         <ButtonGroup
             orientation='horizontal'
         >
@@ -39,6 +38,5 @@ export default function ModeSelector({
                 <EditIcon/>
             </IconButton>
         </ButtonGroup>
-    </Box>
     )
 }

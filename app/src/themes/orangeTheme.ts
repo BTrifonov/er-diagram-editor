@@ -1,65 +1,69 @@
 
 import { colors, createTheme, OutlinedInput } from "@mui/material";
 
-const lightInputGreen = '#9EFF9E'
-const darkBackgroundBlue = '#003FBD'
-const whiteText = 'white'
+const lightOrange = '#FFA64D'
 
-const lighterOrange = '#FFA500'
-const moreLighterOrange = '#F9CD77'
-const darkerOrange = '#F0A30A'
 
-const activateInputTextFieldGreen = '#003300' 
-
+/**
+ * TODO: Definitely choose more approriate colors
+ */
 export const orangeTheme = createTheme({
     palette: {
         primary: {
-            main: darkerOrange,
-            light: moreLighterOrange,
+            main: lightOrange,
             //everything else should be calculated automatically
-            contrastText: 'white'
         },
     },
     components: {
-        MuiTextField: {
-        
-            styleOverrides: {
-                root: {
-                    textDecorationColor: activateInputTextFieldGreen,
-                
-                    outlineColor: 'black'
-                }, 
-                
-            }
-        }, 
         MuiInputLabel: {
-            styleOverrides: {
+            styleOverrides:{
                 root: {
-                    '&.Mui-focused': {
+                    "&.Mui-focused": {
                         color: 'black'
-                    }
-                }
-            }
-        }, 
-        MuiInputBase: {
-            styleOverrides: {
-                root: {
-                  color:'black',
-                  '&:before': {
-                    color: 'black'
-                  },
-                  '&:after': {
-                    color: 'black'
-                  }
-                }
-            }
-        }, 
-        MuiFilledInput: {
-            styleOverrides: {
-                root: {
-                    color:'black'
+                    },
+                    textDecorationColor: 'white'
                 }
             }
         },
+        MuiInput: {
+            //This style is applied, if we use TextField standard
+            styleOverrides: {
+                underline: {
+                    "&:before": {
+                        borderBottomColor: 'black', // Default underline color
+                      },
+                      "&:after": {
+                        borderBottomColor: 'black', // Underline color when focused
+                      },
+                      "&:hover:not(.Mui-disabled):before": {
+                        borderBottomColor: 'black', // Underline color on hover
+                      },
+                }
+            }
+        },
+        MuiFilledInput: {
+            styleOverrides: {
+                input: {
+                    color: 'black',
+                    "&.Mui-focused": {
+                        color: 'black'
+                    }
+                },
+                root: {
+                    color: 'black',
+                }, 
+                underline: {
+                    "&:before": {
+                        borderBottomColor: 'black', // Default underline color
+                      },
+                      "&:after": {
+                        borderBottomColor: 'black', // Underline color when focused
+                      },
+                      "&:hover:not(.Mui-disabled):before": {
+                        borderBottomColor: "black", // Underline color on hover
+                      },
+                }  
+            }
+        }
     }
 })

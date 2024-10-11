@@ -45,27 +45,37 @@ export default function EntityHeader({
         setVisibilityMode(true);
     }
 
-
+    //TODO: Is there a better way to position flex item in center? 
     return (
         <Box
             sx={{
-                bgcolor: theme.palette.primary.main,
+                width: '500px',
+                height: '100px',
+
+                backgroundColor: theme.palette.background.paper,
+                borderColor: 'black',
+                borderWidth: '2px',
+                borderStyle: 'solid',
+                
                 display:'flex',
                 flexDirection: 'row', 
-                justifyContent: 'space-evenly', 
+ 
+                alignItems: 'center',
 
-                alignItems:'center',
-                padding: '1em', 
-
-                
-                minWidth: '100%'
             }}
         >
-            <Box>
+            <Box 
+                sx={{
+                    marginLeft: '25%',
+                    minWidth: '50%'
+                }}
+            >
                 <TextField fullWidth
-                    
+                    sx={{
+                        width: '100%'
+                    }}
                     size='medium'
-                    variant='standard'
+                    variant='filled'
                     label='Entity name'
                     value={entityName}
                     disabled={!editMode}
@@ -74,14 +84,23 @@ export default function EntityHeader({
                 </TextField>  
             </Box>
             
+            <Box
+                sx={{
+                    marginLeft: 'auto',
+                    marginTop: '5%',
+                    marginBottom: '5%', 
+                    marginRight: '1%',
+                    minWidth: '10%'
+                }}
+            >
+                <ModeSelector
+                editMode={editMode}
+                setEditMode={triggerEditMode}
 
-            <ModeSelector
-              editMode={editMode}
-              setEditMode={triggerEditMode}
-
-              visibilityMode={visibilityMode}
-              setVisibilityMode={triggerVisibilityMode}
-              />
+                visibilityMode={visibilityMode}
+                setVisibilityMode={triggerVisibilityMode}
+                />
+            </Box>
         </Box>      
     )
 }

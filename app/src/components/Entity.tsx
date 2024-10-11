@@ -1,21 +1,29 @@
 import * as React from 'react';
 import { Box } from "@mui/material";
 import EntityHeader from "./EntityHeader";
-import EntityEntry from './EntityEntry';
+import EntityField from './EntityField';
 
 
 import { Entity as EntityType } from '../types/entityTypes';
 import { getFieldNames, getFieldTypes, getFieldValidateRules } from '../utils/fieldParser';
+import { Handle,  Position, useUpdateNodeInternals } from '@xyflow/react';
 
 interface EntityData {
     entity: EntityType
 }
 
+//TODO: Read react flow documentation to determine why do we need isConnectabl
 interface EntityProps {
+    id: string,
+    isConnectable:boolean,
     data: EntityData
 }
 
-export default function Entity({ data }: EntityProps) {
+const handleStyle = { left: 10 };
+
+export default function Entity({ id, data, isConnectable }: EntityProps) {
+    const updateNodeInternals = useUpdateNodeInternals();
+    
     /**
      * Entity header state
      */
@@ -31,24 +39,37 @@ export default function Entity({ data }: EntityProps) {
 
     const entityFields: any[] = [];
 
+    let offsetX = 0;
+    const entityFieldCount = data.entity.fields.length;
+
+    // Assume the entity header takes first 10 percentage height
+    const iterationStep = 90 / entityFieldCount;
+   
+
     data.entity.fields.forEach((field, index)=>{
-        entityFields.push(
-            <EntityEntry
-                key={index}
-                
-                fieldName={fieldNames[index]}
-                setFieldName={(newValue: string)=> handleFieldNameChange(index, newValue)}
+            entityFields.push(
+                    <EntityField
+                        key={index}
+                        
+                        fieldName={fieldNames[index]}
+                        setFieldName={(newValue: string)=> handleFieldNameChange(index, newValue)}
+    
+                        fieldType={fieldTypes[index]}
+                        setFieldType={(newValue: string)=> handleFieldTypeChange(index, newValue)}
+    
+                        fieldValidateRules={fieldValidateRules[index]}
+                        setFieldValidateRules={()=>{return}}
+                    >
+                    </EntityField>
+            )
+            
+        })
 
-                fieldType={fieldTypes[index]}
-                setFieldType={(newValue: string)=> handleFieldTypeChange(index, newValue)}
+    React.useEffect(() => {
+        updateNodeInternals(id);
+    }, []);
+    
 
-                fieldValidateRules={fieldValidateRules[index]}
-                setFieldValidateRules={()=>{return}}
-            >
-
-            </EntityEntry>
-        )
-    })
 
 
     const handleFieldNameChange = (index: number, newValue: string) => {
@@ -67,7 +88,7 @@ export default function Entity({ data }: EntityProps) {
     return (
         <Box
             sx={{
-                minWidth: '400px',
+                minWidth: '450px',
 
                 display: 'flex',
                 flexDirection: 'column',

@@ -10,7 +10,7 @@ export default function FieldNameMenu({fieldName, setFieldName, editMode, setEdi
         <TextField
             required
             size='small'
-            variant='standard'
+            variant='filled'
             label='Field name'
             value={fieldName}
             disabled= {editMode ? false:true}

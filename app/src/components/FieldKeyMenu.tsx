@@ -13,21 +13,15 @@ export default function FieldKeyMenu({fieldKey, setFieldKey, editMode, setEditMo
     setFieldKey(event.target.value);
   }
 
+  //Important, apply variant and size only to form control
   return (
-    <Box
-      sx={{
-        minWidth:'5em'
-      }}
-    >
-      <FormControl fullWidth>
-        <InputLabel id="attribute-key-label">Field key</InputLabel>
+      <FormControl variant='filled' size='small' fullWidth>
+        <InputLabel id="attribute-key-label">Key</InputLabel>
         <Select
           id="attribute-key-select"
           labelId="attribute-key-label"
           label={'Attribute key'}
 
-          variant='standard'
-          size='small'
           value={fieldKey}
           
           open={isOpen && editMode}
@@ -42,6 +36,5 @@ export default function FieldKeyMenu({fieldKey, setFieldKey, editMode, setEditMo
           <MenuItem value="FK">FK</MenuItem>
         </Select>
       </FormControl>
-    </Box>
   );
 }

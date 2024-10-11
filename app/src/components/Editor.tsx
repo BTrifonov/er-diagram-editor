@@ -6,8 +6,10 @@ import * as React from 'react';
 import { Entity as EntityType } from '../types/entityTypes';
 import { countEntitiesFromJSON, parseEntitiesFromJSON } from '../utils/entityGeneration';
 import { createNodes } from '../utils/nodeGenerator';
+import EntityFieldNode from './EntityFieldNode';
+import { EntityNode } from './EntityNode';
 
-const nodeTypes = {entity: Entity};
+const nodeTypes = {entity: EntityNode, entityField: EntityFieldNode};
 
 export default function Editor() {
   const [nodes, setNodes] = useState<any[]>([]);
@@ -15,7 +17,6 @@ export default function Editor() {
   const [entities, setEntities]=React.useState<EntityType[]>([]);
     
   //Count number of entities
-  //TODO: Probably not necessary, remove later
   React.useEffect(()=>{
     async function countEntities() {
       const fetchedEntityCount = await countEntitiesFromJSON();
@@ -23,7 +24,6 @@ export default function Editor() {
     }
     
     countEntities();
-
 
     return () => {
       setEntityCount(0);

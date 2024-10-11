@@ -44,44 +44,37 @@ export default function FieldValidateRulesMenu({
         return;
     }
 
+    //TODO: Handle Field validate rules
+    //TODO: If needed, try to create similar appearance to variant 'filled'
     return (
-        <Box
-            sx={{
-                width: 'fit-content'
-            }}
-        >
-            <FormControl fullWidth>
-                <InputLabel id="validate-rules-checkbox-label">Field rules</InputLabel>
-                <Select
-                    variant='standard'
-                    labelId="validate-rules-checkbox-label"
-                    id="validate-rules-checkbox"
-                    multiple
-                    value={fieldValidateRules || []}
-                    
-                    onChange={handleChange}
+        <FormControl fullWidth>
+            <InputLabel id="validate-rules-checkbox-label">Field rules</InputLabel>
+            <Select
+                labelId="validate-rules-checkbox-label"
+                id="validate-rules-checkbox"
+                multiple
+                value={fieldValidateRules || []}
+                
+                onChange={handleChange}
 
-                    //onClick={()=>setIsOpen((prev)=>!prev)}
-                    onOpen={()=>setIsOpen(true)}
-                    onClose={()=>setIsOpen(false)}
+                onClick={()=>setIsOpen((prev)=>!prev)}
 
 
-                    input={<OutlinedInput label="Tag" />}
-                    renderValue={(selected: string[]) => selected.join(', ')}
-                    MenuProps={MenuProps}
-                    open={editMode && isOpen}
-                    disabled={!editMode}
-                >
-                 {fieldValidateRules &&
-                    fieldValidateRules.map((fieldRule) => (
-                    <MenuItem key={fieldRule} value={fieldRule}>
-                        <Checkbox checked={fieldValidateRules.includes(fieldRule)} />
-                        <ListItemText primary={fieldRule} />
-                    </MenuItem>
-                    ))
-                }
-                    </Select>
-            </FormControl>
-        </Box>
+                input={<OutlinedInput label="Tag" />}
+                renderValue={(selected: string[]) => selected.join(', ')}
+                MenuProps={MenuProps}
+                open={editMode && isOpen}
+                disabled={!editMode}
+            >
+                {fieldValidateRules &&
+                fieldValidateRules.map((fieldRule) => (
+                <MenuItem key={fieldRule} value={fieldRule}>
+                    <Checkbox checked={fieldValidateRules.includes(fieldRule)} />
+                    <ListItemText primary={fieldRule} />
+                </MenuItem>
+                ))
+            }
+                </Select>
+        </FormControl>
     )
 }
