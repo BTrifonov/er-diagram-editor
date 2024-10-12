@@ -12,6 +12,9 @@ import FieldTypeMenu from './FieldTypeMenu';
 import FieldKeyMenu from './FieldKeyMenu';
 import FieldValidateRulesMenu from './FieldValidateRulesMenu';
 
+
+//TODO: MUI dividers probably not the best solution in dragging and panning context
+//TODO: Consider using something simpler as svgs
 export default function EntityField({
     fieldName, setFieldName,
     fieldType, setFieldType, 
@@ -71,12 +74,12 @@ export default function EntityField({
             </Box>
           
             {/* ------------------------------------------------------------------------------*/}
-            <Divider 
+            {/* <Divider 
                 orientation="vertical"
                 variant="middle" 
                 flexItem
                 sx={{marginLeft: '1%', marginRight: '1%', backgroundColor: 'black'}}
-            />
+            /> */}
            {/* ------------------------------------------------------------------------------*/}
             <Box
                 sx={{
@@ -91,16 +94,14 @@ export default function EntityField({
                     setEditMode={setEditMode}
                 />
             </Box>
-            {/* ------------------------------------------------------------------------------*/}
-            
-            <Divider 
+            {/* ------------------------------------------------------------------------------*/}            
+            {/* <Divider 
                 orientation="vertical"
                 variant="middle" 
                 flexItem
-                sx={{marginLeft: '1%', marginRight: '1%', backgroundColor: 'black'}}
+                sx={{marginLeft: '1%', marginRight: '1%', backgroundColor: 'black', willChange:'transform'}}
             />
-            
-            
+             */}
             {/* ------------------------------------------------------------------------------*/}
             <Box
                 sx={{width:'20%'}}
@@ -116,13 +117,12 @@ export default function EntityField({
             </Box>
             
             {/* ------------------------------------------------------------------------------*/}
-            <Divider 
+            {/* <Divider 
                 orientation="vertical"
                 variant="middle" 
                 flexItem
                 sx={{marginLeft: '1%', marginRight: '1%', backgroundColor: 'black'}}
-            /> 
-
+            />  */}
             {/* ------------------------------------------------------------------------------*/}
             <Box sx={{width: '20%'}}>
                 <FieldValidateRulesMenu
@@ -137,14 +137,14 @@ export default function EntityField({
       
 
             {/* ------------------------------------------------------------------------------*/}
-            <Divider 
+            {/* <Divider 
                 orientation="vertical"
                 variant="middle" 
                 flexItem
                 sx={{marginLeft: '1%', marginRight: '1%', backgroundColor: 'black'}}
             /> 
             
-            
+             */}
             <ModeSelector 
                 editMode={editMode}
                 setEditMode={setEditMode}

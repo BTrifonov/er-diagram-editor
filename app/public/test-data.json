@@ -1,0 +1,30 @@
+
+{
+    "entities": [
+      {
+        "name": "Venue",
+        "fields": [
+          {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": ["required"]
+          },
+          {
+            "fieldName": "address",
+            "fieldType": "String",
+            "fieldValidateRules": ["required"]
+          },
+          {
+            "fieldName": "city",
+            "fieldType": "String",
+            "fieldValidateRules": ["required"]
+          },
+          {
+            "fieldName": "capacity",
+            "fieldType": "Integer",
+            "fieldValidateRules": ["required"]
+          }
+        ]
+      }
+    ]
+  }

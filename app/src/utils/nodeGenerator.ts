@@ -26,7 +26,7 @@ export function createNodes(entities: Entity[]) {
     entities.forEach((entity)=>{
       let entityFieldCount = entity.fields.length;
 
-      //Assume each entity field (row) requires 200px height
+      //Assume each entity field (row) requires 100px height
       let entityNode = createFlowNode(idCounter.toString(), posX, posY, (entityFieldCount+1)*100, 500, 'entity', entity);
       
       //push entityNode to nodes
@@ -36,7 +36,7 @@ export function createNodes(entities: Entity[]) {
       fieldIdCounter = 0;
 
       //reset posY, start below the entity header
-      posY = 100;
+      posY = 0;
 
       //console log the data entity
       console.log(entityNode.data);
@@ -46,7 +46,9 @@ export function createNodes(entities: Entity[]) {
         //These notes should be children of the entity node
 
         const entityFieldId = `parent-${entityNode.id}-field-${fieldIdCounter.toString()}`
-        let entityField = createFlowNode(entityFieldId, posX, posY+=100, 100, 500, 'entityField', field, idCounter.toString())
+        
+        //TODO: here posX and posY are relative therefore posX should be 0?
+        let entityField = createFlowNode(entityFieldId, 0, posY+=100, 100, 500, 'entityField', field, idCounter.toString())
 
         //push the entity field
         nodes.push(entityField);
@@ -101,7 +103,7 @@ export function createFlowNode(id: string, posX: number, posY: number, height: n
       draggable: false,
       style: {
         height: height,
-        width: width
+        width: width, 
       },
 
       type: type,

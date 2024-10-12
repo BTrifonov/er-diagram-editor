@@ -1,0 +1,5 @@
+1. Consider an efficient way of fetching relevant data:
+   1.1 Fetching entities is working to some extent
+   1.2 TODO: Fetching of relationships
+
+2. 
