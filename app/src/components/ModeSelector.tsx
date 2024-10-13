@@ -23,6 +23,7 @@ export default function ModeSelector({
     return (
         <ButtonGroup
             orientation='horizontal'
+            sx={{marginRight: '2%'}}
         >
             <IconButton
                 size='small'

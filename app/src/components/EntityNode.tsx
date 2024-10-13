@@ -6,13 +6,9 @@ import { Box, TextField, useTheme } from "@mui/material";
 import ModeSelector from "./ModeSelector";
 
 
-interface EntityData {
-    entity: Entity
-}
-
 interface EntityFlowNodeProps {
     id: string,
-    data: EntityData,
+    data: Entity,
     isConnectable: boolean
 }
 
@@ -28,13 +24,16 @@ export function EntityNode({id, data, isConnectable}:EntityFlowNodeProps) {
     const [entityNameInput, setEntityNameInput] = React.useState<string>("");
 
     let entityFieldId: number = 0;
-    const [entityCount, setEntityCount] = React.useState<number>(0);
 
+    //on mount set entityData
     React.useEffect(()=>{
-        if(data && data.entity)
-            setEntityNameInput(data.entity.name)
-    }, []);
-
+        if(data) {
+            console.log("Check data in entity node:");
+            console.log(data);
+            
+            setEntityNameInput(data.name);
+        }
+    })
 
     function triggerEditMode() {
         setVisibilityMode(false);
@@ -47,14 +46,8 @@ export function EntityNode({id, data, isConnectable}:EntityFlowNodeProps) {
         setVisibilityMode(true);
     }
 
-    React.useEffect(()=>{
-        if(data && data.entity && data.entity.fields)
-            setEntityCount(data.entity.fields.length);
-    }, []);
-
     //An EntityFlowNode comprises many EntityFieldNodes
     return (
-        <>
         <Box
             sx={{
                 width: '500px',
@@ -87,7 +80,7 @@ export function EntityNode({id, data, isConnectable}:EntityFlowNodeProps) {
                     label='Entity name'
                     value={entityNameInput}
                     disabled={!editMode}
-                    onChange={(event)=>setEntityNameInput(event.target.value)}
+                    onChange={(event)=> setEntityNameInput(event.target.value)}
                 >
                 </TextField>  
             </Box>
@@ -109,23 +102,6 @@ export function EntityNode({id, data, isConnectable}:EntityFlowNodeProps) {
                 setVisibilityMode={triggerVisibilityMode}
                 />
             </Box>
-        </Box>  
-            {
-                data && data.entity && data.entity.fields && 
-                
-                    data.entity.fields.map((field) => {
-                        entityFieldId++;  // Incrementing entityFieldId in each iteration
-                        return (
-                            <EntityFieldNode
-                                key={entityFieldId}  // It's also a good idea to use entityFieldId as the key
-                                id={entityFieldId.toString()}
-                                parentId={id}
-                                data={field}
-                                isConnectable={isConnectable}
-                            />
-                        );
-                })   
-            }
-        </>
+        </Box>
     )
 }

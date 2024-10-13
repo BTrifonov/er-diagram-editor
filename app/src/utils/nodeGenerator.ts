@@ -7,13 +7,12 @@
 import { Entity } from "../types/entityTypes";
 
 /**
- * TODO: Inspect why the type Node from react-flow is not accepted
- * as type for nodes
  * 
  * @param entities => Contain data such as entity name
  * @returns => React flow nodes for each Entity in the array
  */
 export function createNodes(entities: Entity[]) {
+    //TODO: Last entity field is added twice in the parent component
     let nodes: any[] = [];
    
     let idCounter: number = 0;
@@ -25,6 +24,7 @@ export function createNodes(entities: Entity[]) {
     //TODO: Take into account the entity header
     entities.forEach((entity)=>{
       let entityFieldCount = entity.fields.length;
+      
 
       //Assume each entity field (row) requires 100px height
       let entityNode = createFlowNode(idCounter.toString(), posX, posY, (entityFieldCount+1)*100, 500, 'entity', entity);
@@ -38,10 +38,7 @@ export function createNodes(entities: Entity[]) {
       //reset posY, start below the entity header
       posY = 0;
 
-      //console log the data entity
-      console.log(entityNode.data);
-
-      entityNode.data.fields.forEach((field:any)=>{
+      entity.fields.forEach((field:any)=>{
         //Create a react flow node for each entity field
         //These notes should be children of the entity node
 
@@ -66,8 +63,6 @@ export function createNodes(entities: Entity[]) {
     })
   
     return nodes;
-  
-  
   }
 
 
@@ -87,7 +82,7 @@ export function createNodes(entities: Entity[]) {
  * @returns 
  */
 export function createFlowNode(id: string, posX: number, posY: number, height: number, width: number, type: string, data: any, parentId?: string) {
-  if(parentId){
+ if(parentId){
     //Create a react parent flow component
     //Contains child react flow components
     //Should not be draggable

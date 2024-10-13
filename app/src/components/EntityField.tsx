@@ -60,7 +60,7 @@ export default function EntityField({
             <Box
                 sx={{
                     width: '10%',
-                    marginLeft: '1%'
+                    marginLeft: '2%'
                 }}
             >
                 <FieldKeyMenu

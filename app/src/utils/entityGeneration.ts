@@ -49,6 +49,6 @@ export const parseEntitiesFromJSON = async function() {
 
         return entities;
     }catch(error) {
-        console.log('Error, while parsing the elements')
+        console.log(`Error, while parsing the elements: ${error}`);
     }
 }

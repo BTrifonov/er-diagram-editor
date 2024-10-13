@@ -1,85 +1,78 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import {applyNodeChanges, ReactFlow, Controls, Background, NodeChange} from "@xyflow/react"
-import Entity from './Entity';
 
 import * as React from 'react';
-import { Entity as EntityType } from '../types/entityTypes';
-import { countEntitiesFromJSON, parseEntitiesFromJSON } from '../utils/entityGeneration';
-import { createNodes } from '../utils/nodeGenerator';
+import { parseEntitiesFromJSON } from '../utils/entityGeneration';
+
 import EntityFieldNode from './EntityFieldNode';
 import { EntityNode } from './EntityNode';
+import { createNodes } from '../utils/nodeGenerator';
 
 const nodeTypes = {entity: EntityNode, entityField: EntityFieldNode};
 
+
+//TODO: Improve the logic of fetching data
+//TODO: Ensure that once data is fetched nodes are rendered
 export default function Editor() {
-  const [nodes, setNodes] = useState<any[]>([]);
-  const [entityCount, setEntityCount]=React.useState<number>(0);
-  const [entities, setEntities]=React.useState<EntityType[]>([]);
-    
-  //Count number of entities
-  React.useEffect(()=>{
-    async function countEntities() {
-      const fetchedEntityCount = await countEntitiesFromJSON();
-      setEntityCount(fetchedEntityCount);
-    }
-    
-    countEntities();
+  //all entities fetched from the local JSON file
+  //const [entityData, setEntityData] = React.useState<EntityType[]>([]);
 
-    return () => {
-      setEntityCount(0);
-    }
+  //While entityData is fetched, do not display anything
+  const [loading, setLoading] = React.useState<boolean>(true);
 
-  }, []);
+  const [entityNodes, setEntityNodes] = React.useState<any[]>([]);
+
+  //TODO: Do I even need useState for entities...?
 
   //Parse entities from JSON
   React.useEffect(()=>{
-    async function parseEntities() {
-      const entities = await parseEntitiesFromJSON();
-      
-      if(entities) {
-        //console.log("Entities sent!");
-        setEntities(entities);
-        //console.log(entities);
+    async function fetchEntities() {
+      try {
+        const entities = await parseEntitiesFromJSON();
+
+        return entities;
+      } catch(error) {
+        console.log(`Following error, while fetching entity data:${error}`);
       }
     }
 
-    parseEntities();
+    fetchEntities()
+      .then((entities)=>{
+        if(entities && entities.length > 0) {
+          console.log(entities);
+          
+          setEntityNodes(createNodes(entities));
+          
+          console.log(entityNodes);
 
-    return () => {
-      setEntities([]);
+          setLoading(false);
+        }
+      });
+
+    //clean on unmount
+    return ()=>{
+      setEntityNodes([]);
     }
   }, []);
 
-
-  //Create react-flow nodes from entities
-  React.useEffect(()=>{
-    if(entities) {
-      const nodes = createNodes(entities);
-      setNodes(nodes);
-    }
-
-    return () => {
-      setNodes([]);
-    }
-  }, [entities]);
-
-
+  //-------------------------------------------------
+  // React flow component logic
+  //-------------------------------------------------
+  //TODO: Here one could be more precise in the type of the changes
   const onNodesChange = useCallback(
-      (changes: NodeChange<{ id: string; position: { x: number; y: number; }; type: string; data: {}; }>[]) => setNodes((nds) => applyNodeChanges(changes, nds)),
+      (changes: any) => setEntityNodes((nds:any) => applyNodeChanges(changes, nds)),
       [],
-    );
+  );
 
   return (
-      <div style={{ height: '100%', width: '100%' }}>
-          <ReactFlow
-              onNodesChange={onNodesChange}
-              nodes={nodes} 
-              nodeTypes={nodeTypes}
-          >
-          <Background />
-          <Controls />
-          </ReactFlow>
-      </div> 
-      
-  )
+    loading ? 
+    <div>Loading...</div> 
+    : 
+    <div style={{ height: '100%', width: '100%' }}>
+      <ReactFlow onNodesChange={onNodesChange} nodes={entityNodes} nodeTypes={nodeTypes}>
+        <Background />
+        <Controls />
+      </ReactFlow>
+    </div>
+  );
 }
